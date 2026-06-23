@@ -1,0 +1,64 @@
+[
+    {
+        "id": "shea-001",
+        "name": "Organic Okere Shea Butter",
+        "category": "butter",
+        "price": 24.99,
+        "image": "assets/images/shea-butter-1.jpg",
+        "description": "100% pure, unrefined Nilotica shea butter from the heart of Okere. Cold-pressed and hand-crafted by the women of Okere Cooperative.",
+        "impact": "🌳 Plants 1 shea tree • 📚 Funds 1 day of school",
+        "harvested_by": "Grace & the Okere Women's Cooperative",
+        "composition": {
+            "oleic_acid": "50-65%",
+            "vitamin_e": "3788 ppm",
+            "unsaponifiable": "17%+"
+        },
+        "inStock": true
+    },
+    {
+        "id": "shea-002",
+        "name": "Unrefined Shea Oil",
+        "category": "oil",
+        "price": 29.99,
+        "image": "assets/images/shea-oil-1.jpg",
+        "description": "Cold-pressed shea oil for deep moisture. Perfect for hair, skin, and massage. Retains all natural nutrients.",
+        "impact": "👩‍🌾 Supports adult literacy programs",
+        "harvested_by": "Achieng & the Okere Collective",
+        "composition": {
+            "oleic_acid": "55-60%",
+            "vitamin_e": "3200 ppm"
+        },
+        "inStock": true
+    },
+    {
+        "id": "shea-003",
+        "name": "Shea Body Lotion",
+        "category": "body",
+        "price": 19.99,
+        "image": "assets/images/shea-lotion-1.jpg",
+        "description": "Lightweight, fast-absorbing lotion with Okere shea butter and locally sourced herbs. Leaves skin silky and nourished.",
+        "impact": "💪 Empowers women collectors",
+        "harvested_by": "Sarah & the Okere Beauty Team",
+        "composition": {
+            "oleic_acid": "40-50%",
+            "vitamin_e": "1800 ppm"
+        },
+        "inStock": true
+    },
+    {
+        "id": "shea-004",
+        "name": "Bulk Nilotica Shea - 5kg",
+        "category": "bulk",
+        "price": 99.99,
+        "image": "assets/images/bulk-shea.jpg",
+        "description": "Premium grade bulk shea for cosmetic formulation. Ideal for skincare brands and manufacturers. Fully traceable from Okere.",
+        "impact": "🤝 Direct partnership with community cooperative",
+        "harvested_by": "Okere Shea Cooperative",
+        "composition": {
+            "oleic_acid": "50-65%",
+            "vitamin_e": "3788 ppm",
+            "unsaponifiable": "17%+"
+        },
+        "inStock": true
+    }
+]
