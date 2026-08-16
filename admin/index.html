@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin Login — Okere Shea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<div class="admin-login">
+  <div class="admin-login-box">
+    <div class="admin-login-logo">
+      <div class="logo" style="font-family:'Playfair Display',serif;font-size:1.75rem;background:linear-gradient(135deg,var(--primary-dark),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block;margin-bottom:8px">OkereShea</div>
+      <p style="color:var(--text-muted);font-size:0.9rem">Admin Dashboard</p>
+    </div>
+    <div id="loginError" style="display:none" class="form-error">Invalid credentials. Please try again.</div>
+    <form id="loginForm" onsubmit="doLogin(event)">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter username" required autocomplete="username"/>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter password" required autocomplete="current-password"/>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <label style="display:flex;align-items:center;gap:8px;font-size:0.875rem;cursor:pointer"><input type="checkbox" id="remember" style="width:auto"/> Remember me</label>
+        <a href="#" style="font-size:0.875rem;color:var(--primary)">Forgot password?</a>
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%;justify-content:center">Sign In</button>
+    </form>
+    <p style="text-align:center;margin-top:24px;font-size:0.8rem;color:var(--text-muted)">
+      Super Admin: <code>admin</code> / <code>OkereAdmin2025!</code><br>
+      Editor: <code>editor</code> / <code>OkereEdit2025#</code>
+    </p>
+    <a href="../index.html" style="display:block;text-align:center;margin-top:16px;font-size:0.875rem;color:var(--text-muted)">← Back to Website</a>
+  </div>
+</div>
+<script>
+const USERS = {
+  admin:  { password:'OkereAdmin2025!', role:'superadmin', name:'Super Admin' },
+  editor: { password:'OkereEdit2025#',  role:'editor',     name:'Blog Editor'  }
+};
+function doLogin(e) {
+  e.preventDefault();
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value;
+  const user = USERS[u];
+  if (user && user.password === p) {
+    sessionStorage.setItem('okereAdmin', JSON.stringify({ username:u, role:user.role, name:user.name }));
+    window.location.href = 'dashboard.html';
+  } else {
+    document.getElementById('loginError').style.display = 'flex';
+  }
+}
+// Redirect if already logged in
+if (sessionStorage.getItem('okereAdmin')) window.location.href = 'dashboard.html';
+</script>
+</body></html>

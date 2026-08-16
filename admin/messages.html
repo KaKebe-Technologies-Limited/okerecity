@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Messages — Okere Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/style.css"/></head>
+<body>
+<div class="admin-layout">
+<aside class="admin-sidebar">
+  <div class="admin-sidebar-logo"><div style="font-family:'Playfair Display',serif;font-size:1.25rem;color:#fff;font-weight:700">OkereShea</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.45);margin-top:2px">Admin Panel</div></div>
+  <nav class="admin-nav">
+    <a href="dashboard.html" class="admin-nav-link"><span class="nav-icon">📊</span> Dashboard</a>
+    <a href="orders.html" class="admin-nav-link"><span class="nav-icon">📦</span> Orders</a>
+    <a href="products.html" class="admin-nav-link"><span class="nav-icon">🛍️</span> Products</a>
+    <a href="customers.html" class="admin-nav-link"><span class="nav-icon">👥</span> Customers</a>
+    <a href="blog.html" class="admin-nav-link"><span class="nav-icon">✍️</span> Blog Posts</a>
+    <a href="gallery-admin.html" class="admin-nav-link"><span class="nav-icon">🖼️</span> Gallery</a>
+    <a href="messages.html" class="admin-nav-link active"><span class="nav-icon">💬</span> Messages</a>
+    <a href="settings.html" class="admin-nav-link"><span class="nav-icon">⚙️</span> Settings</a>
+    <a href="#" class="admin-nav-link" onclick="doLogout()"><span class="nav-icon">🚪</span> Logout</a>
+  </nav>
+  <div class="admin-user"><div class="admin-user-avatar" id="adminAvatar">A</div><div><span class="admin-user-name" id="adminName">Admin</span><span class="admin-user-role" id="adminRole">superadmin</span></div></div>
+</aside>
+<main class="admin-main">
+  <div class="admin-header"><div><div class="admin-breadcrumb">Admin / <span>Messages</span></div><h2 style="font-family:Inter,sans-serif;font-size:1.5rem;font-weight:700;margin-top:4px">Messages &amp; Inquiries</h2></div></div>
+  <div class="admin-card">
+    <div class="admin-card-header"><h3>Contact Inquiries</h3><span class="admin-badge danger">3 New</span></div>
+    <div style="overflow-x:auto">
+      <table class="admin-table">
+        <thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Message</th><th>Date</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Emma Johnson</td><td>emma@example.com</td><td>Product Inquiry</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Interested in bulk order of whipped shea...</td><td>Jun 28, 2025</td><td><span class="admin-badge warning">New</span></td></tr>
+          <tr><td style="font-weight:500">Amira Cosmetics</td><td>amira@cosmetics.com</td><td>Wholesale</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">We'd like to discuss a B2B partnership...</td><td>Jun 27, 2025</td><td><span class="admin-badge warning">New</span></td></tr>
+          <tr><td style="font-weight:500">John Smith</td><td>john@example.com</td><td>Sponsorship</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">I want to sponsor a child in Okere...</td><td>Jun 26, 2025</td><td><span class="admin-badge warning">New</span></td></tr>
+          <tr><td style="font-weight:500">Marie Laurent</td><td>marie@beauty.fr</td><td>Partnership</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">French skincare brand looking for supply...</td><td>Jun 24, 2025</td><td><span class="admin-badge success">Replied</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+</div>
+<script>
+function doLogout() { sessionStorage.removeItem('okereAdmin'); window.location.href='index.html'; }
+const user = JSON.parse(sessionStorage.getItem('okereAdmin')||'null');
+if (!user) window.location.href='index.html';
+else { document.getElementById('adminName').textContent=user.name; document.getElementById('adminRole').textContent=user.role; document.getElementById('adminAvatar').textContent=user.name[0]; }
+</script>
+</body></html>

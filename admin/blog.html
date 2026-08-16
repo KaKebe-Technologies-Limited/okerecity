@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Blog Manager — Okere Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<div class="admin-layout">
+<aside class="admin-sidebar">
+  <div class="admin-sidebar-logo"><div style="font-family:'Playfair Display',serif;font-size:1.25rem;color:#fff;font-weight:700">OkereShea</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.45);margin-top:2px">Admin Panel</div></div>
+  <nav class="admin-nav">
+    <span class="admin-nav-section-label">Main</span>
+    <a href="dashboard.html" class="admin-nav-link"><span class="nav-icon">📊</span> Dashboard</a>
+    <a href="orders.html" class="admin-nav-link"><span class="nav-icon">📦</span> Orders</a>
+    <a href="products.html" class="admin-nav-link"><span class="nav-icon">🛍️</span> Products</a>
+    <a href="customers.html" class="admin-nav-link"><span class="nav-icon">👥</span> Customers</a>
+    <span class="admin-nav-section-label" style="margin-top:8px">Content</span>
+    <a href="blog.html" class="admin-nav-link active"><span class="nav-icon">✍️</span> Blog Posts</a>
+    <a href="gallery-admin.html" class="admin-nav-link"><span class="nav-icon">🖼️</span> Gallery</a>
+    <a href="messages.html" class="admin-nav-link"><span class="nav-icon">💬</span> Messages</a>
+    <span class="admin-nav-section-label" style="margin-top:8px">Settings</span>
+    <a href="settings.html" class="admin-nav-link"><span class="nav-icon">⚙️</span> Site Settings</a>
+    <a href="#" class="admin-nav-link" onclick="doLogout()"><span class="nav-icon">🚪</span> Logout</a>
+  </nav>
+  <div class="admin-user"><div class="admin-user-avatar" id="adminAvatar">A</div><div><span class="admin-user-name" id="adminName">Admin</span><span class="admin-user-role" id="adminRole">superadmin</span></div></div>
+</aside>
+<main class="admin-main">
+  <div class="admin-header">
+    <div><div class="admin-breadcrumb">Admin / <span>Blog Posts</span></div><h2 style="font-family:Inter,sans-serif;font-size:1.5rem;font-weight:700;margin-top:4px">Blog Manager</h2></div>
+    <button class="btn-primary" onclick="showEditor()" style="padding:10px 18px;font-size:0.875rem">+ New Post</button>
+  </div>
+  <!-- POST LIST -->
+  <div class="admin-card" id="postList">
+    <div class="admin-card-header"><h3>All Posts</h3></div>
+    <div style="overflow-x:auto">
+      <table class="admin-table" id="postsTable">
+        <thead><tr><th>Title</th><th>Category</th><th>Author</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+        <tbody id="postsBody"></tbody>
+      </table>
+    </div>
+  </div>
+  <!-- POST EDITOR -->
+  <div class="admin-card" id="postEditor" style="display:none">
+    <div class="admin-card-header"><h3 id="editorTitle">New Post</h3><button class="btn-ghost" onclick="hideEditor()">✕ Cancel</button></div>
+    <form id="postForm" onsubmit="savePost(event)">
+      <div class="form-row">
+        <div class="form-group"><label>Post Title *</label><input type="text" id="fTitle" placeholder="Enter post title" required/></div>
+        <div class="form-group"><label>Slug / URL</label><input type="text" id="fSlug" placeholder="post-url-slug"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Category</label><select id="fCat"><option>Harvest</option><option>Conservation</option><option>Community</option><option>Products</option><option>Science</option></select></div>
+        <div class="form-group"><label>Status</label><select id="fStatus"><option value="published">Published</option><option value="draft">Draft</option></select></div>
+      </div>
+      <div class="form-group"><label>Excerpt</label><textarea id="fExcerpt" rows="2" placeholder="Short description for blog listing..."></textarea></div>
+      <div class="form-group"><label>Featured Image URL</label><input type="text" id="fImage" placeholder="assets/images/51.png or paste URL"/></div>
+      <div class="form-group"><label>Content *</label><textarea id="fContent" rows="12" placeholder="Write your blog post content here... HTML is supported." required style="font-family:monospace;font-size:0.9rem"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>SEO Title</label><input type="text" id="fSeoTitle" placeholder="SEO optimised title (50-60 chars)"/></div>
+        <div class="form-group"><label>SEO Description</label><input type="text" id="fSeoDesc" placeholder="Meta description (150-160 chars)"/></div>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <button type="submit" class="btn-primary">💾 Save Post</button>
+        <button type="button" class="btn-secondary" onclick="previewPost()">👁 Preview</button>
+      </div>
+    </form>
+  </div>
+</main>
+</div>
+<script>
+function doLogout() { sessionStorage.removeItem('okereAdmin'); window.location.href='index.html'; }
+const user = JSON.parse(sessionStorage.getItem('okereAdmin')||'null');
+if (!user) window.location.href='index.html';
+else { document.getElementById('adminName').textContent=user.name; document.getElementById('adminRole').textContent=user.role; document.getElementById('adminAvatar').textContent=user.name[0]; }
+
+let posts = JSON.parse(localStorage.getItem('okerePosts')||'[]');
+if (!posts.length) {
+  posts = [
+    { id:1, title:'Harvest Season Begins in Okere', slug:'harvest-season-2025', category:'Harvest', author:'Okere Team', status:'published', date:'2025-03-15', excerpt:'As the shea trees bloom...', image:'../assets/images/51.png', content:'<p>Full content here...</p>' },
+    { id:2, title:'Shea Trees: Our Inheritance, Our Future', slug:'shea-trees-inheritance', category:'Conservation', author:'Donnas Ojok-Okello', status:'published', date:'2025-02-02', excerpt:'How Okere protects shea trees...', image:'../assets/images/52.png', content:'<p>Full content here...</p>' },
+    { id:3, title:'From Okere to the World', slug:'okere-global-journey', category:'Community', author:'Grace Akello', status:'draft', date:'2025-01-10', excerpt:'Our global journey...', image:'../assets/images/53.png', content:'<p>Full content here...</p>' }
+  ];
+  localStorage.setItem('okerePosts', JSON.stringify(posts));
+}
+
+function renderPosts() {
+  document.getElementById('postsBody').innerHTML = posts.map(p => `
+    <tr>
+      <td style="font-weight:500">${p.title}</td>
+      <td><span class="admin-badge info">${p.category}</span></td>
+      <td>${p.author}</td>
+      <td><span class="admin-badge ${p.status==='published'?'success':'warning'}">${p.status}</span></td>
+      <td>${p.date}</td>
+      <td style="display:flex;gap:8px">
+        <button class="btn-ghost" style="padding:6px 12px;font-size:0.8rem" onclick="editPost(${p.id})">Edit</button>
+        <button class="btn-ghost" style="padding:6px 12px;font-size:0.8rem;color:#dc2626" onclick="deletePost(${p.id})">Delete</button>
+      </td>
+    </tr>`).join('');
+}
+
+function showEditor(post) {
+  document.getElementById('postList').style.display='none';
+  document.getElementById('postEditor').style.display='block';
+  document.getElementById('editorTitle').textContent = post ? 'Edit Post' : 'New Post';
+  if (post) {
+    document.getElementById('fTitle').value=post.title;
+    document.getElementById('fSlug').value=post.slug;
+    document.getElementById('fCat').value=post.category;
+    document.getElementById('fStatus').value=post.status;
+    document.getElementById('fExcerpt').value=post.excerpt;
+    document.getElementById('fImage').value=post.image;
+    document.getElementById('fContent').value=post.content;
+    document.getElementById('postForm').dataset.editId=post.id;
+  } else {
+    document.getElementById('postForm').reset();
+    delete document.getElementById('postForm').dataset.editId;
+  }
+}
+
+function hideEditor() { document.getElementById('postList').style.display='block'; document.getElementById('postEditor').style.display='none'; renderPosts(); }
+
+function editPost(id) { const p = posts.find(x=>x.id===id); if(p) showEditor(p); }
+
+function deletePost(id) {
+  if (!confirm('Delete this post?')) return;
+  posts = posts.filter(p => p.id!==id);
+  localStorage.setItem('okerePosts', JSON.stringify(posts));
+  renderPosts();
+}
+
+function savePost(e) {
+  e.preventDefault();
+  const editId = parseInt(document.getElementById('postForm').dataset.editId);
+  const post = {
+    id: editId || Date.now(),
+    title: document.getElementById('fTitle').value,
+    slug: document.getElementById('fSlug').value || document.getElementById('fTitle').value.toLowerCase().replace(/\s+/g,'-'),
+    category: document.getElementById('fCat').value,
+    author: user.name,
+    status: document.getElementById('fStatus').value,
+    date: new Date().toISOString().split('T')[0],
+    excerpt: document.getElementById('fExcerpt').value,
+    image: document.getElementById('fImage').value,
+    content: document.getElementById('fContent').value
+  };
+  if (editId) { const idx=posts.findIndex(p=>p.id===editId); posts[idx]=post; }
+  else posts.unshift(post);
+  localStorage.setItem('okerePosts', JSON.stringify(posts));
+  alert('✅ Post saved successfully!');
+  hideEditor();
+}
+
+function previewPost() { alert('Preview: Post would appear on the blog page.'); }
+
+renderPosts();
+</script>
+</body></html>

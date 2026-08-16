@@ -1,66 +1,41 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Contact form
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Basic validation
-            const name = document.getElementById('name')?.value?.trim();
-            const email = document.getElementById('email')?.value?.trim();
-            const message = document.getElementById('message')?.value?.trim();
-            
-            if (!name || !email || !message) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-            
-            if (!email.includes('@') || !email.includes('.')) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-            
-            // Simulate sending
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                alert('✅ Thank you for reaching out!\n\nWe\'ll get back to you within 24 hours.\n\nWith gratitude,\nThe Okere Team');
-                this.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 1500);
-        });
-    }
-    
-    // Partnership form
-    const partnershipForm = document.getElementById('partnershipForm');
-    if (partnershipForm) {
-        partnershipForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const company = document.getElementById('companyName')?.value?.trim();
-            const name = document.getElementById('contactName')?.value?.trim();
-            const email = document.getElementById('contactEmail')?.value?.trim();
-            
-            if (!company || !name || !email) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-            
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                alert('🤝 Thank you for your partnership interest!\n\nWe\'ll connect with you to discuss how we can work together.\n\nWith gratitude,\nThe Okere Team');
-                this.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 1500);
-        });
-    }
+document.addEventListener('DOMContentLoaded', function () {
+  function submitContact(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    const orig = btn.textContent;
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    setTimeout(() => {
+      showToast('Message sent! We\'ll reply within 24 hours.', 'success');
+      e.target.reset();
+      btn.textContent = orig;
+      btn.disabled = false;
+    }, 1400);
+  }
+
+  const cf = document.getElementById('contactForm');
+  if (cf) cf.addEventListener('submit', submitContact);
+
+  const pf = document.getElementById('partnershipForm');
+  if (pf) pf.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const btn = this.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending…'; btn.disabled = true;
+    setTimeout(() => {
+      showToast('Partnership enquiry received! We\'ll be in touch shortly.', 'success');
+      this.reset(); btn.textContent = 'Send Enquiry'; btn.disabled = false;
+    }, 1400);
+  });
 });
+
+// expose for inline onsubmit
+function submitContact(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  const orig = btn.textContent;
+  btn.textContent = 'Sending…'; btn.disabled = true;
+  setTimeout(() => {
+    showToast('Message sent! We\'ll reply within 24 hours.', 'success');
+    e.target.reset(); btn.textContent = orig; btn.disabled = false;
+  }, 1400);
+}

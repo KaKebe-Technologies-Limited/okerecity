@@ -1,54 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shop — Okere Shea Collection</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Shop — Okere Shea Collection</title>
+<meta name="description" content="Shop premium Nilotica shea butter — pure, traceable, community-crafted in Uganda."/>
+<meta property="og:title" content="Shop — Okere Shea"/><meta property="og:image" content="assets/images/38.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-    <div id="header"></div>
+<div id="site-header"></div>
+<main>
 
-    <main>
-        <section class="page-hero shop-hero">
-            <div class="container">
-                <h1>Our Shea Collection</h1>
-                <p>Each jar carries the story of Okere — from our community to you.</p>
-            </div>
-        </section>
+<section class="page-hero" style="background-image:url('assets/images/35.png')">
+  <div class="container page-hero-inner">
+    <span class="eyebrow" style="color:var(--gold)">Our Collection</span>
+    <h1>Pure Shea, Community-Made</h1>
+    <p>Every product is traceable from tree to jar.</p>
+  </div>
+</section>
 
-        <section class="shop-section">
-            <div class="container">
-                <div class="shop-toolbar">
-                    <div class="filter-buttons" id="filterButtons">
-                        <button class="filter-btn active" data-filter="all">All</button>
-                        <button class="filter-btn" data-filter="butter">Shea Butter</button>
-                        <button class="filter-btn" data-filter="oil">Shea Oil</button>
-                        <button class="filter-btn" data-filter="body">Body Care</button>
-                        <button class="filter-btn" data-filter="bulk">Bulk / Wholesale</button>
-                    </div>
-                    <div class="shop-sort">
-                        <label for="sortSelect">Sort by:</label>
-                        <select id="sortSelect">
-                            <option value="featured">Featured</option>
-                            <option value="price-low">Price: Low to High</option>
-                            <option value="price-high">Price: High to Low</option>
-                            <option value="name">Name</option>
-                        </select>
-                    </div>
-                </div>
+<section class="section">
+  <div class="container">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--sand)">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-primary btn-sm active" data-filter="all">All</button>
+        <button class="btn btn-outline btn-sm" data-filter="butter">Shea Butter</button>
+        <button class="btn btn-outline btn-sm" data-filter="oil">Shea Oil</button>
+        <button class="btn btn-outline btn-sm" data-filter="body">Body Care</button>
+        <button class="btn btn-outline btn-sm" data-filter="bulk">Wholesale</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--ink-soft)">
+        <label for="sortSelect">Sort</label>
+        <select id="sortSelect" style="padding:8px 14px;border:1.5px solid var(--sand);border-radius:6px;background:var(--white);font-size:.85rem;outline:none;color:var(--ink);cursor:pointer">
+          <option value="featured">Featured</option>
+          <option value="low">Price: Low to High</option>
+          <option value="high">Price: High to Low</option>
+          <option value="name">A – Z</option>
+        </select>
+      </div>
+    </div>
+    <div id="productGrid" class="product-grid"></div>
+  </div>
+</section>
 
-                <div id="productGrid" class="product-grid">
-                    <!-- Rendered by JavaScript -->
-                </div>
-            </div>
-        </section>
-    </main>
+<section class="cta-band">
+  <div class="container">
+    <h2 class="reveal">Need Bulk Orders?</h2>
+    <p class="reveal delay-1">We supply brands and manufacturers worldwide. Custom volumes, full traceability, UNBS certified.</p>
+    <div class="cta-actions reveal delay-2">
+      <a href="partnership.html" class="btn btn-gold">Wholesale Enquiry</a>
+      <a href="contact.html" class="btn btn-ghost-white">Contact Us</a>
+    </div>
+  </div>
+</section>
 
-    <div id="footer"></div>
-
-    <script src="js/main.js"></script>
-    <script src="js/shop.js"></script>
-</body>
-</html>
+</main>
+<div id="site-footer"></div>
+<script src="js/main.js"></script>
+<script src="js/shop.js"></script>
+</body></html>
